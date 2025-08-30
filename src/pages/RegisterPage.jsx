@@ -3,7 +3,7 @@ import "./RegisterPage.css";
 import { RegisterApi } from "../services/Api";
 import { storeUserData } from "../services/Storage";
 import { isAuthenticated } from "../services/Auth";
-import {Navigate} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
 
 export default function RegisterPage() {
 
@@ -54,7 +54,7 @@ export default function RegisterPage() {
           setLoading(false)
         })
     }
-    setErrors(errors)
+    setErrors({...errors})
   }
 
   const[inputs, setInputs] = useState({
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                 </div>
                 <div className="clearfix"></div>
                 <div className="form-group">
-                  Already have account ? Please <a href="# ">Login</a>
+                  Already have account ? Please <Link to="/login">Login</Link>
                 </div>
               </form>
             </div>
