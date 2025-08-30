@@ -1,5 +1,9 @@
 import { useState } from "react";
 import "./RegisterPage.css";
+import { RegisterApi } from "../services/Api";
+import { storeUserData } from "../services/Storage";
+import { isAuthenticated } from "../services/Auth";
+import {Navigate} from 'react-router-dom'
 
 export default function RegisterPage() {
 
@@ -34,6 +38,21 @@ export default function RegisterPage() {
     if(!hasError){
         //sending register api request
         setLoading(true)
+        RegisterApi(inputs).then((response)=>{
+          storeUserData(response.data.idToken)
+        })
+        .catch((err)=>{
+          console.log(err)
+          if(err.response.data.error.message == "EMAIL_EXISTS"){
+            setErrors({...errors, custom_error:"Already this email has been registered"})
+          }
+          else if(String(err.response.data.error.message).includes('WEAK_PASSWORD')){
+            setErrors({...errors, custom_error:"Password should be atleast 6 characters"})
+          }
+        })
+        .finally(()=>{
+          setLoading(false)
+        })
     }
     setErrors(errors)
   }
@@ -46,6 +65,10 @@ export default function RegisterPage() {
 
   const handleInput = (event) => {
     setInputs({...inputs, [event.target.name]:event.target.value})
+  }
+
+  if(isAuthenticated()){
+    return <Navigate to="/dashboard"/>
   }
 
   return (
