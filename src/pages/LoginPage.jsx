@@ -4,6 +4,7 @@ import { LoginApi } from "../services/Api";
 import { storeUserData } from "../services/Storage";
 import { isAuthenticated } from "../services/Auth";
 import { Link, Navigate } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 export default function LoginPage() {
   const initialStateErrors = {
@@ -62,7 +63,9 @@ export default function LoginPage() {
     }
 
   return (
-    <section className="login-block">
+    <div>
+      <NavBar />
+      <section className="login-block">
       <div className="container">
         <div className="row ">
           <div className="col login-sec">
@@ -135,5 +138,7 @@ export default function LoginPage() {
         </div>
       </div>
     </section>
+    </div>
+    
   );
 }

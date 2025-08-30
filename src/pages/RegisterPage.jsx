@@ -4,6 +4,7 @@ import { RegisterApi } from "../services/Api";
 import { storeUserData } from "../services/Storage";
 import { isAuthenticated } from "../services/Auth";
 import {Link, Navigate} from 'react-router-dom'
+import NavBar from "../components/NavBar";
 
 export default function RegisterPage() {
 
@@ -73,6 +74,7 @@ export default function RegisterPage() {
 
   return (
     <div>
+      <NavBar />
       <section className="register-block">
         <div className="container">
           <div className="row ">
